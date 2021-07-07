@@ -17,14 +17,16 @@
                                 <button class="btn danger" type="submit">Delete</button>
                             </form>
                         </li>
-                    <% }) %>
                 </ul>
                 <hr>
-                <div class="centered">
+                <!-- <div class="centered">
                     <form action="/create-order" method="POST">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <button type="submit" class="btn">Order Now!</button>
+                        <button type="submit" class="btn">Order Now</button>
                     </form>
+                </div> -->
+                <div class="centered">
+                   <a class="btn" href="/checkout">Checkout</a>
                 </div>
                 
             <% } else { %>
