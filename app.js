@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const path = require('path');
-
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -14,6 +14,7 @@ const flash = require('connect-flash');
 const multer = require('multer');
 const helmet = require('helmet');
 const compression = require('compression');
+const morgan = require('morgan');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -64,18 +65,24 @@ const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
 // app.use(compression());
- app.use(
-   helmet.contentSecurityPolicy({
-     directives: {
-       'default-src': ["'self'"],
-       'script-src': ["'self'", "'unsafe-inline'", 'js.stripe.com'],
-       'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
-       'frame-src': ["'self'", 'js.stripe.com'],
-       'font-src': ["'self'", 'fonts.googleapis.com', 'fonts.gstatic.com'],
-     },
-   })
- );
-app.use(compression())
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      'default-src': ["'self'"],
+      'script-src': ["'self'", "'unsafe-inline'", 'js.stripe.com'],
+      'style-src': ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
+      'frame-src': ["'self'", 'js.stripe.com'],
+      'font-src': ["'self'", 'fonts.googleapis.com', 'fonts.gstatic.com'],
+    },
+  })
+);
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+  { flags: 'a' }
+);
+app.use(compression());
+app.use(morgan('short', { stream: accessLogStream }));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(multer({ storage: fileStorage, fileFilter }).single('image'));
 app.use(express.static(path.join(__dirname, 'public')));
