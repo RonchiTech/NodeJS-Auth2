@@ -1,0 +1,9 @@
+{
+  "env": {
+    "MONGODB_USER": "ronchinodejs",
+    "MONGODB_PASSWORD": "3vPLxB5YBlzDn0R0",
+    "MONG_DB_NAME": "shop",
+    "STRIPE_KEY": "sk_test_51JAbJKEkfVzE4chyXffvnpGsLZOv1gDqERus2m1i6trvFDfAN0VdhgyjS0kRDxKcPXsYneEYBQVF8S7QBUE7GVkQ00GUugsbkg",
+    "PORT": "3000"
+  }
+}
